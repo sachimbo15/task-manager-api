@@ -22,7 +22,12 @@ def add_task():
     return jsonify({"message": "Task received"}), 201
 
 
-
+@app.route('/task/<int:task_id>', methods=['GET'])
+def fetch_task(task_id):
+    for task in tasks:
+        if task["id"] == task_id:
+            return jsonify(task)
+    return jsonify({"error": "Task not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
