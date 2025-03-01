@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -13,6 +13,16 @@ tasks = [
 @app.route('/tasks')
 def get_tasks():
     return jsonify(tasks)
+
+@app.route('/tasks', methods=['POST'])
+def add_task():
+    print("Received a POST request!")  # Debugging line
+    data = request.get_json()
+    print("Received data:", data)
+    return jsonify({"message": "Task received"}), 201
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
